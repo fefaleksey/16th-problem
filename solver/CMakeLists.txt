@@ -3,4 +3,4 @@ project(solver C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(solver main.c include/Structures.h src/Structures.c)
+add_executable(solver main.c include/Structures.h src/Structures.c src/Files.c include/Files.h)
