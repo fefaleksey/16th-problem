@@ -1,4 +1,6 @@
 #include "../include/Structures.h"
+#include "../include/"
+#include "../include/SingularPoints.h"
 #include <stdlib.h>
 
 
@@ -34,6 +36,29 @@ typedef struct Region
 	double beta_to;
 	double beta_step;
 } Region;
+
+typedef struct Point
+{
+	double x;
+	double y;
+} Point;
+
+typedef struct SingularPoints
+{
+	double x0;
+	double y0;
+
+	double x1;
+	double y1;
+
+	double x2;
+	double y2;
+
+	double x3;
+	double y3;
+
+	int numbers;
+} SingularPoints;
 
 Region *create_region(double a_from
 					, double a_to
@@ -89,6 +114,17 @@ Vector *create_vector(const double a
 	vector->alpha = alpha;
 	vector->beta = beta;
 	return vector;
+}
+
+SingularPoints *get_singular_points(Vector *vector)
+{
+	SingularPoints *sPoint = malloc(sizeof(SingularPoints));
+
+	set_x0(sPoint, 0);
+	set_y0(sPoint, 0);
+
+	set_numbers(sPoint, num(vector, sPoint));
+	return sPoint;
 }
 
 const double get_region_a_from(const Region *region)
@@ -214,6 +250,96 @@ void set_alpha(Vector *vector, const double alpha)
 void set_beta(Vector *vector, const double beta)
 {
 	vector->beta = beta;
+}
+
+const double get_x0(SingularPoints *sPoint)
+{
+	return sPoint->x0;
+}
+
+const double get_x1(SingularPoints *sPoint)
+{
+	return sPoint->x1;
+}
+
+const double get_x2(SingularPoints *sPoint)
+{
+	return sPoint->x2;
+}
+
+const double get_x3(SingularPoints *sPoint)
+{
+	return sPoint->x3;
+}
+
+const double get_y0(SingularPoints *sPoint)
+{
+	return sPoint->y0;
+}
+
+const double get_y1(SingularPoints *sPoint)
+{
+	return sPoint->y1;
+}
+
+const double get_y2(SingularPoints *sPoint)
+{
+	return sPoint->y2;
+}
+
+const double get_y3(SingularPoints *sPoint)
+{
+	return sPoint->y3;
+}
+
+const int  get_numbers(SingularPoints *sPoint)
+{
+	return sPoint->numbers;
+}
+
+void set_x0(SingularPoints *sPoint, double x0)
+{
+	sPoint->x0 = x0;
+}
+
+void set_x1(SingularPoints *sPoint, double x1)
+{
+	sPoint->x1 = x1;
+}
+
+void set_x2(SingularPoints *sPoint, double x2)
+{
+	sPoint->x2 = x2;
+}
+
+void set_x3(SingularPoints *sPoint, double x3)
+{
+	sPoint->x3 = x3;
+}
+
+void set_y0(SingularPoints *sPoint, double y0)
+{
+	sPoint->y0 = y0;
+}
+
+void set_y1(SingularPoints *sPoint, double y1)
+{
+	sPoint->y1 = y1;
+}
+
+void set_y2(SingularPoints *sPoint, double y2)
+{
+	sPoint->y2 = y2;
+}
+
+void set_y3(SingularPoints *sPoint, double y3)
+{
+	sPoint->y3 = y3;
+}
+
+void set_numbers(SingularPoints *sPoint, int numbers)
+{
+	sPoint->numbers = numbers;
 }
 
 void delete_vector(Vector *vector)

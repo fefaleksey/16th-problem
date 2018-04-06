@@ -2,6 +2,9 @@
 
 typedef struct Vector Vector;
 typedef struct Region Region;
+typedef struct Point Point;
+typedef struct SingularPoints SingularPoints;
+
 
 Vector *create_vector(double a
 	, double b
@@ -24,6 +27,8 @@ Region *create_region(double a_from
 	, double beta_from
 	, double beta_to
 	, double beta_step);
+
+SingularPoints *get_singular_points(Vector *vector);
 
 const double get_region_a_from(const Region *region);
 const double get_region_b_from(const Region *region);
@@ -54,6 +59,26 @@ void set_b(Vector *vector, double b);
 void set_c(Vector *vector, double c);
 void set_alpha(Vector *vector, double alpha);
 void set_beta(Vector *vector, double beta);
+
+const double get_x0(SingularPoints *sPoint);
+const double get_x1(SingularPoints *sPoint);
+const double get_x2(SingularPoints *sPoint);
+const double get_x3(SingularPoints *sPoint);
+const double get_y0(SingularPoints *sPoint);
+const double get_y1(SingularPoints *sPoint);
+const double get_y2(SingularPoints *sPoint);
+const double get_y3(SingularPoints *sPoint);
+const int get_numbers(SingularPoints *sPoint);
+
+void set_x0(SingularPoints *sPoint, double x0);
+void set_x1(SingularPoints *sPoint, double x1);
+void set_x2(SingularPoints *sPoint, double x2);
+void set_x3(SingularPoints *sPoint, double x3);
+void set_y0(SingularPoints *sPoint, double y0);
+void set_y1(SingularPoints *sPoint, double y1);
+void set_y2(SingularPoints *sPoint, double y2);
+void set_y3(SingularPoints *sPoint, double y3);
+void set_numbers(SingularPoints *sPoint, int numbers);
 
 void delete_vector(Vector *vector);
 void delete_region(Region *region);
