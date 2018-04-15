@@ -1,5 +1,4 @@
 #include "../include/Structures.h"
-#include "../include/"
 #include "../include/SingularPoints.h"
 #include <stdlib.h>
 

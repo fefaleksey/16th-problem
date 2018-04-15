@@ -1,5 +1,4 @@
 #include "../include/SingularPoints.h"
-
 #include <math.h>
 
 #define EPS 0.0000000001
