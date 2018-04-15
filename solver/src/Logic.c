@@ -42,13 +42,15 @@ int test(int argc, char **argv)
 	printf("%d %d\n", myrank, nprocs);
 	Vector *vector;
 	for (int i = 0; i < nprocs; ++i) {
-		vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -437.5, 0.003);
-		int quantity = find_cycles_in_sp_environs(vector, 0, 0, 10, 100);
-		delete_vector(vector);
-		q[i] = quantity;
+		if (myrank == i) {
+			vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -437.5, 0.003);
+			int quantity = find_cycles_in_sp_environs(vector, 0, 0, 10, 100);
+			delete_vector(vector);
+			q[i] = quantity;
+		}
 	}
 	MPI_Finalize();
-	printf("%d %d\n", q[0], q[1]);
+	printf("%d %d %d %d\n", q[0], q[1], q[2], q[3]);
 	return q[0];
 }
 
