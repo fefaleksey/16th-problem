@@ -126,102 +126,102 @@ SingularPoints *get_singular_points(Vector *vector)
 	return sPoint;
 }
 
-const double get_region_a_from(const Region *region)
+double get_region_a_from(const Region *region)
 {
 	return region->a_from;
 }
 
-const double get_region_b_from(const Region *region)
+double get_region_b_from(const Region *region)
 {
 	return region->b_from;
 }
 
-const double get_region_c_from(const Region *region)
+double get_region_c_from(const Region *region)
 {
 	return region->c_from;
 }
 
-const double get_region_alpha_from(const Region *region)
+double get_region_alpha_from(const Region *region)
 {
 	return region->alpha_from;
 }
 
-const double get_region_beta_from(const Region *region)
+double get_region_beta_from(const Region *region)
 {
 	return region->beta_from;
 }
 
-const double get_region_a_to(const Region *region)
+double get_region_a_to(const Region *region)
 {
 	return region->a_to;
 }
 
-const double get_region_b_to(const Region *region)
+double get_region_b_to(const Region *region)
 {
 	return region->b_to;
 }
 
-const double get_region_c_to(const Region *region)
+double get_region_c_to(const Region *region)
 {
 	return region->c_to;
 }
 
-const double get_region_alpha_to(const Region *region)
+double get_region_alpha_to(const Region *region)
 {
 	return region->alpha_to;
 }
 
-const double get_region_beta_to(const Region *region)
+double get_region_beta_to(const Region *region)
 {
 	return region->beta_to;
 }
 
-const double get_region_a_step(const Region *region)
+double get_region_a_step(const Region *region)
 {
 	return region->a_step;
 }
 
-const double get_region_b_step(const Region *region)
+double get_region_b_step(const Region *region)
 {
 	return region->b_step;
 }
 
-const double get_region_c_step(const Region *region)
+double get_region_c_step(const Region *region)
 {
 	return region->c_step;
 }
 
-const double get_region_alpha_step(const Region *region)
+double get_region_alpha_step(const Region *region)
 {
 	return region->alpha_step;
 }
 
-const double get_region_beta_step(const Region *region)
+double get_region_beta_step(const Region *region)
 {
 	return region->beta_step;
 }
 
-const double get_a(const Vector *vector)
+double get_a(const Vector *vector)
 {
 	return vector->a;
 }
 
-const double get_b(const Vector *vector)
+double get_b(const Vector *vector)
 {
 	return vector->b;
 }
 
-const double get_c(const Vector *vector)
+double get_c(const Vector *vector)
 {
 	return vector->c;
 }
 
-const double get_alpha(const Vector *vector)
+double get_alpha(const Vector *vector)
 {
 	return vector->alpha;
 }
 
-const double get_beta(const Vector *vector)
+double get_beta(const Vector *vector)
 {
 	return vector->beta;
 }
@@ -251,47 +251,47 @@ void set_beta(Vector *vector, const double beta)
 	vector->beta = beta;
 }
 
-const double get_x0(SingularPoints *sPoint)
+double get_x0(SingularPoints *sPoint)
 {
 	return sPoint->x0;
 }
 
-const double get_x1(SingularPoints *sPoint)
+double get_x1(SingularPoints *sPoint)
 {
 	return sPoint->x1;
 }
 
-const double get_x2(SingularPoints *sPoint)
+double get_x2(SingularPoints *sPoint)
 {
 	return sPoint->x2;
 }
 
-const double get_x3(SingularPoints *sPoint)
+double get_x3(SingularPoints *sPoint)
 {
 	return sPoint->x3;
 }
 
-const double get_y0(SingularPoints *sPoint)
+double get_y0(SingularPoints *sPoint)
 {
 	return sPoint->y0;
 }
 
-const double get_y1(SingularPoints *sPoint)
+double get_y1(SingularPoints *sPoint)
 {
 	return sPoint->y1;
 }
 
-const double get_y2(SingularPoints *sPoint)
+double get_y2(SingularPoints *sPoint)
 {
 	return sPoint->y2;
 }
 
-const double get_y3(SingularPoints *sPoint)
+double get_y3(SingularPoints *sPoint)
 {
 	return sPoint->y3;
 }
 
-const int  get_numbers(SingularPoints *sPoint)
+int  get_numbers(SingularPoints *sPoint)
 {
 	return sPoint->numbers;
 }
