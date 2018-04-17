@@ -32,3 +32,10 @@ C:/Users/kamall/Desktop/ref/Parallelus_3/Visualization/Visualization/obj/Debug/V
 C:/Users/kamall/Desktop/ref/Parallelus_3/Visualization/Visualization/obj/Debug/Visualization.csproj.CoreCompileInputs.cache
 C:/Users/kamall/Desktop/ref/Parallelus_3/Visualization/Visualization/obj/Debug/Visualization.exe
 C:/Users/kamall/Desktop/ref/Parallelus_3/Visualization/Visualization/obj/Debug/Visualization.pdb
+/home/aleksey/programs/16th-problem/Visualization/Visualization/bin/Debug/Visualization.exe
+/home/aleksey/programs/16th-problem/Visualization/Visualization/bin/Debug/Visualization.pdb
+/home/aleksey/programs/16th-problem/Visualization/Visualization/bin/Debug/ZedGraph.dll
+/home/aleksey/programs/16th-problem/Visualization/Visualization/obj/Debug/Visualization.csprojResolveAssemblyReference.cache
+/home/aleksey/programs/16th-problem/Visualization/Visualization/obj/Debug/Visualization.csproj.CoreCompileInputs.cache
+/home/aleksey/programs/16th-problem/Visualization/Visualization/obj/Debug/Visualization.exe
+/home/aleksey/programs/16th-problem/Visualization/Visualization/obj/Debug/Visualization.pdb

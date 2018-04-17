@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ZedGraph;
 
 namespace Visualization
@@ -14,6 +15,64 @@ namespace Visualization
 			_vector = new Vector(a, b, c, alpha, beta);
 		}
 
+		public List<PointPairList> GetVerticalIsoclinesPoints(double xFrom, double xTo, int steps)
+		{
+			var step = Math.Abs(xTo - xFrom) / steps;
+			var x = xFrom;
+			var points = new List<PointPairList> {new PointPairList(), new PointPairList()};
+			for (var i = 0; i < steps; i++)
+			{
+				var ord = GetVerticalIsoclineY(x);
+				points[0].Add(new PointPair(x, ord.X));
+				points[1].Add(new PointPair(x, ord.Y));
+				x += step;
+			}
+			return points;
+		}
+
+		private PointPair GetVerticalIsoclineY(double x)
+		{
+			var a = _vector.A;
+			var b = _vector.B;
+			var c = _vector.C;
+			var alpha = _vector.Alpha;
+			var beta = _vector.Beta;
+
+			var y1 = -b * x - beta + Math.Sqrt(Math.Pow(b * x + beta, 2) - 4 * x * (a * x + alpha)) / 2 * c;
+			var y2 = -b * x - beta - Math.Sqrt(Math.Pow(b * x + beta, 2) - 4 * x * (a * x + alpha)) / 2 * c;
+			return new PointPair(y1, y2);
+		}
+		
+		public List<PointPairList> GetHorisontalIsoclinesPoints(double xFrom, double xTo, int steps)
+		{
+			const double eps = 0.001;
+			var step = Math.Abs(xTo - xFrom) / steps;
+			var x = xFrom;
+			var points = new List<PointPairList> {new PointPairList(), new PointPairList()};
+			while (Math.Abs(x + 1) > eps && x < -1 && x < xTo)
+			{
+				var y = GetHorisontalIsoclineY(x);
+				points[0].Add(x, y);
+				x += step;
+			}
+
+			while (Math.Abs(x + 1) < eps)
+			{
+				x += step;
+			}
+			while (x < xTo)
+			{
+				var y = GetHorisontalIsoclineY(x);
+				points[1].Add(x, y);
+				x += step;
+			}
+
+			return points;
+		}
+
+		private double GetHorisontalIsoclineY(double x) => -(x * x) / (x + 1);
+		
+		
 		public Result GetResult(double h, int quantityOfPoints)
 		{
 			var x = _initialData.X;
@@ -23,8 +82,8 @@ namespace Visualization
 			var yLast = y;
 			var counter = 0;
 			var isToRight = true;
-			
-			if (yLast == 0)
+			const double eps = 0.00000000001;
+			if (Math.Abs(yLast) < eps)
 			{
 				counter = -1;
 			}

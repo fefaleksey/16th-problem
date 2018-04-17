@@ -30,7 +30,7 @@ namespace Visualization
 		private void HelpRunExampleGraphItem_Click(object sender, EventArgs e)
 		{
 			var drawer = new Drawer(zedGraph);
-			drawer.DrawExample();
+			drawer.DrawExampleWithoutArrows();
 		}
 		
 		private void HelpRunExampleSyclesItem_Click(object sender, EventArgs e)
