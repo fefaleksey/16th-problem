@@ -38,8 +38,10 @@ namespace Visualization
 			var alpha = _vector.Alpha;
 			var beta = _vector.Beta;
 
-			var y1 = -b * x - beta + Math.Sqrt(Math.Pow(b * x + beta, 2) - 4 * x * (a * x + alpha)) / 2 * c;
-			var y2 = -b * x - beta - Math.Sqrt(Math.Pow(b * x + beta, 2) - 4 * x * (a * x + alpha)) / 2 * c;
+			var y1 = (-b * x - beta + Math.Sqrt((b * x + beta) * (b * x + beta) - 4 * c * x * (a * x + alpha))) / (2 * c);
+			var y2 = (-b * x - beta - Math.Sqrt((b * x + beta) * (b * x + beta) - 4 * c * x * (a * x + alpha))) / (2 * c);
+//			var y1 = 1.0 / 800.0 * (Math.Sqrt(23290000.0 * x * x + 700016200 * x + 9) - 2700 * x - 3);
+//			var y2 = 1.0 / 800.0 * ( - Math.Sqrt(23290000.0 * x * x + 700016200 * x + 9) - 2700 * x - 3);
 			return new PointPair(y1, y2);
 		}
 		
@@ -72,7 +74,7 @@ namespace Visualization
 
 		private double GetHorisontalIsoclineY(double x) => -(x * x) / (x + 1);
 		
-		
+			
 		public Result GetResult(double h, int quantityOfPoints)
 		{
 			var x = _initialData.X;
