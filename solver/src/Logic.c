@@ -15,7 +15,7 @@ void set_next_point(Vector *vector, double x, double y, double *next_x, double *
 int pass_few_semicircle(double start_x, double start_y, Vector *vector, int quantity, double *rez_x, double *rez_y);
 int find_cycles_in_sp_environs(Vector *vector, double x0, double y0, double to, unsigned int quantity_steps);
 
-#define SWAP_LONG_DOUBLE(x,y) do { double t = x; x = y; y = t;  } while(0)
+#define SWAP_DOUBLE(x,y) do { double t = x; (x) = y; (y) = t;  } while(0)
 void swap(double *a, double *b)
 {
 	double c = *a;
@@ -44,7 +44,8 @@ int test(int argc, char **argv)
 	Vector *vector;
 	for (int i = 0; i < nprocs; ++i) {
 		if (myrank == i) {
-			vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -437.5, 0.003);
+			//vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -437.5, 0.003);
+			vector = create_vector(-10.5, 1.925 + 0.002 * i, 0.4, -437.5, 0.003);
 			int quantity = find_cycles_in_sp_environs(vector, 0, 0, 10, 100);
 			delete_vector(vector);
 			q[i] = quantity;
@@ -215,9 +216,6 @@ double psi(Vector *vector, const double x, const double y)
 
 void set_next_point(Vector *vector, double x, double y, double *next_x, double *next_y, const double h)
 {
-//	const double x = last_x;
-//	const double y = last_y;
-
 	const double k11 = h * fi(x, y);
 	const double k21 = h * psi(vector, x, y);
 
@@ -251,8 +249,8 @@ int FindCentre(double start_x, double start_y, Vector *vector, double *rez_x, do
 			next_x -= (next_x - last_x) / 2;
 		}
 		else if (last_x > next_x) {
-			SWAP_LONG_DOUBLE(last_x, next_x);
-			SWAP_LONG_DOUBLE(last_y, next_y);
+			SWAP_DOUBLE(last_x, next_x);
+			SWAP_DOUBLE(last_y, next_y);
 		}
 
 	}
