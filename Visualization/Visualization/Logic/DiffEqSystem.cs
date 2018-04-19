@@ -123,7 +123,8 @@ namespace Visualization
 		public Cycles FindStabilityCycles(PointPair startPoint, double endOfInterval)
 		{
 			const double step = 0.1;
-			var point = FindCentre(startPoint);
+			//var point = FindCentre(startPoint);
+			var point  = new PointPair(0.1, 0);
 			var cycles = new Cycles();
 			if (point == null)
 			{
@@ -134,32 +135,35 @@ namespace Visualization
 			startPoint = point;
 			point = PassFewSemicircle(point, 2);
 			var lastDirection = GetDirection(startPoint.X, point.X);
-			point.X += step;
-			
+			//point.X += step;
+			startPoint.X += step;
 			while (point != null && point.X < endOfInterval)
 			{
-				startPoint = point;
-				point = PassFewSemicircle(point, 2);
+				//startPoint = point;
+				point = PassFewSemicircle(startPoint, 2);
 				if (point == null)
 				{
 					return cycles;
 				}
-				const double accuracy = 0.001;
+				const double accuracy = 0.00001;
 				var newDirection = GetDirection(startPoint.X, point.X);
 				if (newDirection != lastDirection)
 				{
+					var lastPoint = startPoint.Clone();
+					lastPoint.X -= step;
 					if(lastDirection == 1)
 					{
-						FindCycleApproximatePoints(ref cycles, startPoint, point, accuracy, true);
+						FindCycleApproximatePoints(ref cycles, lastPoint, startPoint, accuracy, true);
 					}
 					else
 					{
-						FindCycleApproximatePoints(ref cycles, startPoint, point, accuracy, false);
+						FindCycleApproximatePoints(ref cycles, lastPoint, startPoint, accuracy, false);
 					}
 				}
 
 				lastDirection = newDirection;
-				point.X += step;
+				startPoint.X += step;
+				//point.X += step;
 			}
 
 			return cycles;

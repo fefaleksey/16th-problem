@@ -10,6 +10,9 @@ namespace Visualization
 		public EditorForm()
 		{
 			InitializeComponent();
+			var drawer = new Drawer(zedGraph);
+			drawer.DrawExampleStabilityCycles();
+			MessageBox.Show("Done");
 		}
 
 		private void FileNewItem_Click(object sender, EventArgs e)
@@ -30,13 +33,15 @@ namespace Visualization
 		private void HelpRunExampleGraphItem_Click(object sender, EventArgs e)
 		{
 			var drawer = new Drawer(zedGraph);
-			drawer.DrawExampleWithoutArrows();
+			//drawer.DrawExampleWithoutArrows();
+			drawer.DrawExample();
 		}
 		
 		private void HelpRunExampleSyclesItem_Click(object sender, EventArgs e)
 		{
 			var drawer = new Drawer(zedGraph);
 			drawer.DrawExampleStabilityCycles();
+			MessageBox.Show("Done");
 		}
 
 		private void HelpAboutItem_Click(object sender, EventArgs e)

@@ -55,11 +55,12 @@ namespace Visualization
 		public void DrawExample()
 		{
 			
-			var diff = new DiffEqSystem(-10.0, 2.7, 0.4, -437.5, 0.003);
+			//var diff = new DiffEqSystem(-10.0, 2.7, 0.4, -437.5, 0.003);
+			var diff = new DiffEqSystem(-10.5, 1.925, 0.4, -2012, 0.2);
 			const string title = "a = -10.0, b = 2.7, c = 0.4, alpha = -437.5, beta = 0.003";
 			var x0 = -1.4;
 			var y0 = 0;
-			for (var i = -20; i < 20; i++)
+			for (var i = -20; i < 50; i++)
 			{
 				var x1 = -1.4 + i * 0.6;
 				const int y1 = 0;
@@ -72,7 +73,8 @@ namespace Visualization
 				x0 = x1;
 				y0 = y1;
 			}
-			DrawIsoclines();
+
+			DrawIsoclines(diff);
 		}
 
 		public void DrawExampleWithoutArrows()
@@ -93,12 +95,13 @@ namespace Visualization
 				x0 = x1;
 				y0 = y1;
 			}
-			DrawIsoclines();
+			DrawIsoclines(diff);
 		}
 		
 		public void DrawExampleStabilityCycles()
 		{
 			var diff = new DiffEqSystem(-10.0, 2.7, 0.4, -437.5, 0.003);
+			//var diff = new DiffEqSystem(-10.5, 1.925, 0.4, -2012, 0.2);
 			var cycles = diff.FindStabilityCycles(new PointPair(0.1, 0), 10);
 			
 			foreach (var t in cycles.UnStable)
@@ -112,13 +115,13 @@ namespace Visualization
 			}
 		}
 
-		private void DrawIsoclines()
+		private void DrawIsoclines(DiffEqSystem diff)
 		{
-			var diff = new DiffEqSystem(-10.0, 2.7, 0.4, -437.5, 0.003);
-			var isoclines = diff.GetVerticalIsoclinesPoints(-100, 100, 100000);
+			//var diff = new DiffEqSystem(-10.0, 2.7, 0.4, -437.5, 0.003);
+			var isoclines = diff.GetVerticalIsoclinesPoints(-500, 100, 100000);
 			DrawIsocline(isoclines[0], "vertical isocline", Color.Black);
 			DrawIsocline(isoclines[1], "", Color.Black);
-			var horisontalIsocline = diff.GetHorisontalIsoclinesPoints(-100, 100, 100000);
+			var horisontalIsocline = diff.GetHorisontalIsoclinesPoints(-500, 100, 100000);
 			DrawIsocline(horisontalIsocline[0], "horisontal isoclines", Color.DarkBlue);
 			DrawIsocline(horisontalIsocline[1], "", Color.DarkBlue);
 		}
