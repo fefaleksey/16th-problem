@@ -1,7 +1,7 @@
 #include <math.h>
 #include <assert.h>
 #include <stdio.h>
-#include <mpi/mpi.h>
+#include <mpi.h>
 #include "../include/Logic.h"
 
 static const int QUANTITY_OF_HALF_TURN = 10;

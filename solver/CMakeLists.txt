@@ -9,7 +9,7 @@ set(CMAKE_C_STANDARD 11)
 find_package(MPI REQUIRED)
 include_directories(${MPI_INCLUDE_PATH})
 
-add_executable(solver main.c include/Structures.h src/Structures.c src/Files.c include/Files.h src/Logic.c include/Logic.h src/SingularPoints.c include/SingularPoints.h)
+add_executable(solver main.c include/Structures.h src/Structures.c src/Files.c include/Files.h src/Logic.c include/Logic.h src/SingularPoints.c include/SingularPoints.h include/Test_SingularPoints.h src/Test_SingularPoints.c include/Tests.h)
 
 target_link_libraries(solver m)
 target_link_libraries(solver ${MPI_LIBRARIES})
