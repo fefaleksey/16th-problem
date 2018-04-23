@@ -4,9 +4,9 @@
 #include <mpi/mpi.h>
 #include "../include/Logic.h"
 
-static const int QUANTITY_OF_HALF_TURN = 10;
-#define EPS 0.000001
-#define MAX_QUANTITY_OF_STEPS 10000000
+static const int QUANTITY_OF_HALF_TURN = 20;
+#define EPS 0.000000001
+#define MAX_QUANTITY_OF_STEPS 100000000
 
 
 double fi(double x, double y);
@@ -14,14 +14,6 @@ double psi(Vector *vector, double x, double y);
 void set_next_point(Vector *vector, double x, double y, double *next_x, double *next_y, double h);
 int pass_few_semicircle(double start_x, double start_y, Vector *vector, int quantity, double *rez_x, double *rez_y);
 int find_cycles_in_sp_environs(Vector *vector, double x0, double y0, double to, unsigned int quantity_steps);
-
-#define SWAP_DOUBLE(x,y) do { double t = x; (x) = y; (y) = t;  } while(0)
-void swap(double *a, double *b)
-{
-	double c = *a;
-	*a = *b;
-	*b = c;
-}
 
 int get_direction(double from, double to)
 {
@@ -44,9 +36,9 @@ int test(int argc, char **argv)
 	Vector *vector;
 	for (int i = 0; i < nprocs; ++i) {
 		if (myrank == i) {
-			//vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -437.5, 0.003);
-			vector = create_vector(-10.5, 1.925 + 0.002 * i, 0.4, -437.5, 0.003);
-			int quantity = find_cycles_in_sp_environs(vector, 0, 0, 10, 100);
+			vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -437.5, 0.003);
+			//vector = create_vector(-10.5, 1.925 + 0.002 * i, 0.4, -2012, 0.2);
+			int quantity = find_cycles_in_sp_environs(vector, 0, 0, 200, 2000);
 			delete_vector(vector);
 			q[i] = quantity;
 		}
@@ -142,35 +134,12 @@ int find_cycles_in_sp_environs(Vector*vector, double x0, double y0, double to, u
 			last_direction = new_direction;
 		}
 	}
-	/*
-	for (int i = 0; i < quantity_steps; ++i) {
-		coshi_x += step;
-		last_x = coshi_x;
-		if (pass_few_semicircle(last_x, last_y, vector, QUANTITY_OF_HALF_TURN, &next_x, &next_y)) {
-			return -1; // ...
-		}
-		//printf("%lf %lf || %lf %lf\n", last_x, last_y, next_x, next_y);
-		new_direction = get_direction(last_x, next_x);
-		if (last_direction != new_direction) {
-			if (step < EPS) {
-				printf("%.10lf %.10lf %d %d\n", last_x, next_x, last_direction, new_direction);
-				++quantity;
-			}
-			else {
-				double last_coshi = coshi_x - step; // * 1.1;
-				quantity += find_cycles_in_sp_environs(vector, last_coshi, coshi_y, next_x, 100);
-			}
-			last_direction = new_direction;
-		}
-	}
-	*/
 	return quantity;
 }
 
-// TODO: пофиксить
 int pass_few_semicircle(double start_x, double start_y, Vector *vector, int quantity, double *rez_x, double *rez_y)
 {
-	const double h = 0.000001;
+	const double h = 0.00001;
 	double y0 = start_y;
 	double last_x = start_x;
 	double last_y = start_y;
@@ -228,34 +197,6 @@ void set_next_point(Vector *vector, double x, double y, double *next_x, double *
 	const double k14 = h * fi(x + k13, y + k23);
 	const double k24 = h * psi(vector, x + k13, y + k23);
 
-	*next_x = x + (k11 + k12 + k13 + k14) / 6;
-	*next_y = y + (k21 + k22 + k23 + k24) / 6;
-}
-
-int FindCentre(double start_x, double start_y, Vector *vector, double *rez_x, double *rez_y)
-{
-	const double error = 0.01;
-	double last_x = start_x;
-	double last_y = start_y;
-	double next_x;
-	double next_y;
-
-	do {
-		if (pass_few_semicircle(last_x, last_y, vector, 1, &next_x, &next_y)) {
-			return 1;
-		}
-
-		if (last_x < next_x) {
-			next_x -= (next_x - last_x) / 2;
-		}
-		else if (last_x > next_x) {
-			SWAP_DOUBLE(last_x, next_x);
-			SWAP_DOUBLE(last_y, next_y);
-		}
-
-	}
-	while (next_x - start_x > error);
-	*rez_x = next_x;
-	*rez_y = next_y;
-	return 0;
+	*next_x = x + (k11 + 2 * k12 + 2 * k13 + k14) / 6;
+	*next_y = y + (k21 + 2 * k22 + 2 * k23 + k24) / 6;
 }
