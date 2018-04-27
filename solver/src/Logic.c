@@ -4,7 +4,8 @@
 #include <mpi/mpi.h>
 #include "../include/Logic.h"
 
-static const int QUANTITY_OF_HALF_TURN = 20;
+static const int QUANTITY_OF_HALF_TURN = 2;
+static const double K = 1;
 #define EPS 0.000000001
 #define MAX_QUANTITY_OF_STEPS 100000000
 
@@ -36,9 +37,12 @@ int test(int argc, char **argv)
 	Vector *vector;
 	for (int i = 0; i < nprocs; ++i) {
 		if (myrank == i) {
-			vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -437.5, 0.003);
+			//vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -440, 0.003);
+			//vector = create_vector(-0.2, 1, 0.5, -15, 0.13);
+			vector = create_vector(-10, 2.2, 0.7, -72.7778, 0.0015);
 			//vector = create_vector(-10.5, 1.925 + 0.002 * i, 0.4, -2012, 0.2);
-			int quantity = find_cycles_in_sp_environs(vector, 0, 0, 200, 2000);
+			//int quantity = find_cycles_in_sp_environs(vector, 0, 0, 20, 200);
+			int quantity = find_cycles_in_sp_environs(vector, 0, 0, 20, 1000);
 			delete_vector(vector);
 			q[i] = quantity;
 		}
@@ -110,7 +114,7 @@ int find_cycles_in_sp_environs(Vector*vector, double x0, double y0, double to, u
 		coshi_x += step;
 		last_x = coshi_x;
 			if (pass_few_semicircle(last_x, last_y, vector, QUANTITY_OF_HALF_TURN, &next_x, &next_y)) {
-			return -1; // ...
+				return -1; // ...
 		}
 		printf("%lf %lf || %lf %lf\n", last_x, last_y, next_x, next_y);
 		new_direction = get_direction(last_x, next_x);
@@ -118,7 +122,7 @@ int find_cycles_in_sp_environs(Vector*vector, double x0, double y0, double to, u
 			//printf("%.10lf %.10lf %d %d\n", last_x, next_x, last_direction, new_direction);
 			double right_x = coshi_x, left_x = coshi_x - step;
 			while (right_x - left_x > EPS) {
-				printf("***%lf %lf\n", left_x, right_x);
+//				printf("***%lf %lf\n", left_x, right_x);
 				double new_x = left_x + (right_x - left_x) / 2;
 				double x, y;
 				pass_few_semicircle(new_x, y0, vector, QUANTITY_OF_HALF_TURN, &x, &y);
@@ -139,7 +143,7 @@ int find_cycles_in_sp_environs(Vector*vector, double x0, double y0, double to, u
 
 int pass_few_semicircle(double start_x, double start_y, Vector *vector, int quantity, double *rez_x, double *rez_y)
 {
-	const double h = 0.00001;
+	const double h = 0.000001;
 	double y0 = start_y;
 	double last_x = start_x;
 	double last_y = start_y;
@@ -169,7 +173,7 @@ int pass_few_semicircle(double start_x, double start_y, Vector *vector, int quan
 
 double fi(const double x, const double y)
 {
-	return x * x + x * y + y;
+	return K * x * x + K * x * y + y;
 }
 
 double psi(Vector *vector, const double x, const double y)
@@ -179,8 +183,7 @@ double psi(Vector *vector, const double x, const double y)
 	const double c = get_c(vector);
 	const double alpha = get_alpha(vector);
 	const double beta = get_beta(vector);
-
-	return a * x * x + b * x * y + c * y * y + alpha * x + beta * y;
+	return K * a * x * x + K * b * x * y + K * c * y * y + alpha * x + beta * y;
 }
 
 void set_next_point(Vector *vector, double x, double y, double *next_x, double *next_y, const double h)
