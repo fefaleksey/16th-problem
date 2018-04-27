@@ -27,6 +27,7 @@ compiler:
     - clang
 
 before_install:
+    - brew reinstall gcc --without-multilib
     - brew install openmpi
     - brew install mpfr
 
