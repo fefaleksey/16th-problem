@@ -19,3 +19,16 @@ script:
     - cmake ../solver
     - make
 
+
+os:
+				-osx
+
+before_install:
+				- brew install open-mpi mpfr
+
+script:
+    - mkdir build
+    - cd build
+    - cmake ../solver
+    - make
+
