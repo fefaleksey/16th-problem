@@ -8,9 +8,12 @@ os:
 compiler:
     - gcc
 
+before_install:
+				- sudo apt-get install mpich2 
+				- sudo apt-get install libmpi 
+
 script:
-    # скрипт сборки и тестирования проекта:
-				- sudo apt-get install libcr-dev mpich2    
+    # скрипт сборки и тестирования проекта:    
 				- mkdir build
     - cd build
     - cmake ../solver
