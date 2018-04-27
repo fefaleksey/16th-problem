@@ -1,17 +1,3 @@
-language: c
-dist:     trusty    # используем Ubuntu 14.04 Trusty Tahr (а не 12.02 Precise Pangolin)
-sudo:     required  # используем Virtual Machine (а не Docker container)
-
-os:
-    - linux
-
-compiler:
-    - gcc
-
-script:
-    # скрипт сборки и тестирования проекта:
-    - mkdir build
-    - cd build
-    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
-    - cmake --build .
-    - ctest --output-on-failure
+language: C
+os: osx
+script: cmake
