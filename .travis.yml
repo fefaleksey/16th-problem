@@ -4,7 +4,6 @@ sudo:     required  # используем Virtual Machine (а не Docker conta
 language: c
 
 os:
-    # будем прогонять CI и на Linux, и на Mac OS X...
     - linux
     - osx
 
@@ -34,7 +33,7 @@ matrix:
 
 install:
     # скрипт настройки среды и установки зависимостей:
-    - source ci/travis/install-$TRAVIS_OS_NAME.sh
+    # - source ci/travis/install-$TRAVIS_OS_NAME.sh
 
 script:
     # скрипт сборки и тестирования проекта:
