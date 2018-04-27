@@ -1,3 +1,17 @@
-language: C
-os: osx
-script: cmake
+language: c
+dist:     trusty    # используем Ubuntu 14.04 Trusty Tahr (а не 12.02 Precise Pangolin)
+sudo:     required  # используем Virtual Machine (а не Docker container)
+
+os:
+    - linux
+
+compiler:
+    - gcc
+
+script:
+    # скрипт сборки и тестирования проекта:
+    - mkdir build
+    - cd build
+    - cmake ../solver
+    - make
+
