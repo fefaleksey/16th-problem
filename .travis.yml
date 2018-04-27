@@ -1,0 +1,16 @@
+language: C
+compiler:
+		- mpicc
+
+os:
+		- linux
+		- osx
+		- windows
+
+before_install:
+		- test -n $CC && unset CC
+
+
+script: 
+		cmake
+
