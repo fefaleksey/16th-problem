@@ -9,12 +9,12 @@ compiler:
     - gcc
 
 before_install:
-				- sudo apt-get install mpich2 
-				- sudo apt-get install libmpi 
+    - sudo apt-get install mpich2 
+    - sudo apt-get install libmpi 
 
 script:
     # скрипт сборки и тестирования проекта:    
-				- mkdir build
+    - mkdir build
     - cd build
     - cmake ../solver
     - make
