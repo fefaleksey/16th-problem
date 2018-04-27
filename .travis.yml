@@ -22,11 +22,13 @@ script:
 
 os:
     -osx
+
 compiler:
     - clang
 
 before_install:
-    - brew install open-mpi mpfr
+    - brew install open-mpi
+    - - brew install mpfr
 
 script:
     - mkdir build
