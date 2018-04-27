@@ -27,7 +27,7 @@ compiler:
     - clang
 
 before_install:
-    - brew install open-mpi
+    - brew install openmpi
     - brew install mpfr
 
 script:
