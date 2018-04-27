@@ -28,7 +28,7 @@ compiler:
 
 before_install:
     - brew install open-mpi
-    - - brew install mpfr
+    - brew install mpfr
 
 script:
     - mkdir build
