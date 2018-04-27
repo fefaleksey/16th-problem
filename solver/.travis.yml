@@ -1,8 +1,0 @@
-solver:
-				language: C
-				compiler:
-						- clang
-						- gcc
-
-				os: osx
-				script: cmake
