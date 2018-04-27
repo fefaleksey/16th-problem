@@ -1,30 +1,58 @@
-language: C
+dist:     trusty    # используем Ubuntu 14.04 Trusty Tahr (а не 12.02 Precise Pangolin)
+sudo:     required  # используем Virtual Machine (а не Docker container)
+
+language: c
+
+os:
+    # будем прогонять CI и на Linux, и на Mac OS X...
+    - linux
+    - osx
+
+compiler:
+    # ... и с помощью GCC, и Clang
+    - gcc
+    - clang
+
+env:
+    # список переменных окружения, влияющих на матрицу сборки:
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
+    - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+    - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+
 matrix:
- 		- os: linux
-   compiler: gcc
-   addons:
-     apt:
-       # sources:
-         # - ubuntu-toolchain-r-test
-       packages:
-         # GCC 4.9
-         # - g++-4.9
-         # MPICH
-         - mpich
-         - libmpich-dev
-         # OpenMPI
-         # - openmpi-bin
-         # - libopenmpi-dev
-   env: DEBUG=NO
-        MPI=YES
-        CODECOV=YES
-        MFEM_TEST_TARGET=test
-        NPROCS=2
-   cache:
-     directories:
-       - $TRAVIS_BUILD_DIR/../hypre-2.10.0b/src/hypre/lib
-       - $TRAVIS_BUILD_DIR/../hypre-2.10.0b/src/hypre/include
-       - $TRAVIS_BUILD_DIR/../metis-4.0
-   before_cache:
-     - cd $TRAVIS_BUILD_DIR/../metis-4.0;
-							mv libmetis.a ..; rm -rf *; mv ../libmetis.a .
+    exclude:
+        # вручную исключим ненужные элементы из матрицы сборки:
+        - os:       osx
+          compiler: gcc
+
+        - os:  osx
+          env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+
+        - os:  osx
+          env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+
+install:
+    # скрипт настройки среды и установки зависимостей:
+    - source ci/travis/install-$TRAVIS_OS_NAME.sh
+
+script:
+    # скрипт сборки и тестирования проекта:
+    - mkdir build
+    - cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
+    - cmake --build .
+    - ctest --output-on-failure
+
+deploy:
+    # выкладываем tagged-коммиты на GitHub Releases:
+    provider:     releases
+    file:         <package-file>
+    skip_cleanup: true
+    overwrite:    true
+
+    api_key:
+        secure:   <encrypted-github-token>
+
+    on:
+        tags:     true
