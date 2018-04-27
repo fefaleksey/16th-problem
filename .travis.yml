@@ -8,12 +8,10 @@ os:
 compiler:
     - gcc
 
-before_install:
-				- sudo apt-get install libcr-dev mpich2
-
 script:
     # скрипт сборки и тестирования проекта:
-    - mkdir build
+				- sudo apt-get install libcr-dev mpich2    
+				- mkdir build
     - cd build
     - cmake ../solver
     - make
