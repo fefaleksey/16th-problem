@@ -5,11 +5,11 @@ sudo:     required  # используем Virtual Machine (а не Docker conta
 jobs:
     include:
     - stage: linux
-        os: linux
-        compiler: gcc
+      os: linux
+      compiler: gcc
     - stage: osx
-        os: osx
-        compiler: clang
+      os: osx
+      compiler: clang
 
 script:
     - mkdir build
