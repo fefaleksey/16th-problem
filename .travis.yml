@@ -6,11 +6,9 @@ jobs:
     - stage: linux
         os: linux
         compiler: gcc
-        before_install: sudo apt-get install mpi-default-dev mpich2 libmpfr-dev libmpfr4 libmpfr4-dbg
     - stage: osx
         os: osx
         compiler: clang
-        before_install: ./scripts/before_build_mac.sh
 
 script:
     - mkdir build
