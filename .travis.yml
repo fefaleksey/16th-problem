@@ -11,7 +11,7 @@ jobs:
     - stage: osx
       os: osx
       compiler: clang
-      before_install: ./scripts/before_build_mac.sh
+      before_install: chmod + x ./scripts/before_build_mac.sh
 
 script:
     - mkdir build
