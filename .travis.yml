@@ -11,7 +11,7 @@ jobs:
     - stage: osx
         os: osx
         compiler: clang
-        before	_install:
+        before_install:
             - brew reinstall gcc --without-multilib
             - brew install openmpi
             - brew install mpfr
