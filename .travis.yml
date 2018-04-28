@@ -4,14 +4,15 @@ sudo:     required  # используем Virtual Machine (а не Docker conta
 
 jobs:
     include:
+    - stage: OX X
+      os: osx
+      compiler: clang
+      before_install: ./scripts/before_build_mac.sh
     - stage: linux
       os: linux
       compiler: gcc
       before_install: sudo apt-get install mpi-default-dev mpich2 libmpfr-dev libmpfr4 libmpfr4-dbg
-    - stage: osx
-      os: OS X
-      compiler: clang
-      before_install: chmod +x ./scripts/before_build_mac.sh
+
 
 script:
     - mkdir build
