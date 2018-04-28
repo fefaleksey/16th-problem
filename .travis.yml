@@ -3,6 +3,7 @@ dist:     trusty    # используем Ubuntu 14.04 Trusty Tahr (а не 12.
 sudo:     required  # используем Virtual Machine (а не Docker container)
 
 jobs:
+    include:
     - stage: linux
         os: linux
         compiler: gcc
