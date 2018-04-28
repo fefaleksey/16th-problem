@@ -16,7 +16,7 @@ jobs:
             - brew install openmpi
             - brew install mpfr
 
-    script:
+script:
     - mkdir build
     - cd build
     - cmake ../solver
