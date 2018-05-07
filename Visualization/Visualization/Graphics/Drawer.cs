@@ -81,8 +81,6 @@ namespace Visualization
 		{
 			var diff = new DiffEqSystem(-10.0, 2.7, 0.4, -437.5, 0.003);
 			const string title = "a = -10.0, b = 2.7, c = 0.4, alpha = -437.5, beta = 0.003";
-			var x0 = -1.4;
-			var y0 = 0;
 			for (var i = -20; i < 20; i++)
 			{
 				var x1 = -1.4 + i * 0.6;
@@ -92,8 +90,6 @@ namespace Visualization
 				var result = diff.GetResult(0.00001, 90000);
 				//DrawGraph(result.GraphicPounts, arrow, "(" + x + ",0)", title);
 				DrawGraph(result.GraphicPounts, "", title);
-				x0 = x1;
-				y0 = y1;
 			}
 			DrawIsoclines(diff);
 		}

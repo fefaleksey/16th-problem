@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using ZedGraph;
 
 namespace Visualization
@@ -27,6 +28,7 @@ namespace Visualization
 				points[1].Add(new PointPair(x, ord.Y));
 				x += step;
 			}
+
 			return points;
 		}
 
@@ -44,7 +46,7 @@ namespace Visualization
 //			var y2 = 1.0 / 800.0 * ( - Math.Sqrt(23290000.0 * x * x + 700016200 * x + 9) - 2700 * x - 3);
 			return new PointPair(y1, y2);
 		}
-		
+
 		public List<PointPairList> GetHorisontalIsoclinesPoints(double xFrom, double xTo, int steps)
 		{
 			const double eps = 0.001;
@@ -62,6 +64,7 @@ namespace Visualization
 			{
 				x += step;
 			}
+
 			while (x < xTo)
 			{
 				var y = GetHorisontalIsoclineY(x);
@@ -73,8 +76,8 @@ namespace Visualization
 		}
 
 		private double GetHorisontalIsoclineY(double x) => -(x * x) / (x + 1);
-		
-			
+
+
 		public Result GetResult(double h, int quantityOfPoints)
 		{
 			var x = _initialData.X;
@@ -89,7 +92,7 @@ namespace Visualization
 			{
 				counter = -1;
 			}
-			
+
 			for (var i = 0; i < quantityOfPoints; i++)
 			{
 				list.Add(NextPoint(x, y, h));
@@ -124,14 +127,8 @@ namespace Visualization
 		{
 			const double step = 0.1;
 			//var point = FindCentre(startPoint);
-			var point  = new PointPair(0.1, 0);
+			var point = new PointPair(0.1, 0);
 			var cycles = new Cycles();
-			if (point == null)
-			{
-				point = startPoint;
-				point.X += 0.1;
-			}
-
 			startPoint = point;
 			point = PassFewSemicircle(point, 2);
 			var lastDirection = GetDirection(startPoint.X, point.X);
@@ -145,13 +142,14 @@ namespace Visualization
 				{
 					return cycles;
 				}
+
 				const double accuracy = 0.00001;
 				var newDirection = GetDirection(startPoint.X, point.X);
 				if (newDirection != lastDirection)
 				{
 					var lastPoint = startPoint.Clone();
 					lastPoint.X -= step;
-					if(lastDirection == 1)
+					if (lastDirection == 1)
 					{
 						FindCycleApproximatePoints(ref cycles, lastPoint, startPoint, accuracy, true);
 					}
@@ -169,11 +167,11 @@ namespace Visualization
 			return cycles;
 		}
 
-		private void FindCycleApproximatePoints(ref Cycles cycles, PointPair left, PointPair right, 
-												double accuracy, bool isStable)
+		private void FindCycleApproximatePoints(ref Cycles cycles, PointPair left, PointPair right,
+			double accuracy, bool isStable)
 		{
 			var newPoint = left;
-			
+
 			while (right.X - left.X > accuracy)
 			{
 				newPoint.X = left.X + (right.X - left.X) / 2;
@@ -213,6 +211,7 @@ namespace Visualization
 				{
 					return null;
 				}
+
 				if (point.X < newPoint.X)
 				{
 					newPoint.X -= (newPoint.X - point.X) / 2;
@@ -223,7 +222,7 @@ namespace Visualization
 					newPoint = point;
 					point = p;
 				}
-				
+
 			} while (newPoint.X - point.X > error);
 
 			return newPoint;
@@ -300,12 +299,12 @@ namespace Visualization
 
 			return new PointPair(nextX, nextY);
 		}
-		
+
 		private PointPair NextPoint(PointPair point, double h)
 		{
 			var x = point.X;
 			var y = point.Y;
-			
+
 			var k11 = h * Fi(x, y);
 			var k21 = h * Psi(x, y);
 
@@ -352,7 +351,7 @@ namespace Visualization
 		}
 
 		#region structs
-		
+
 		private struct Vector
 		{
 			public double A { get; }
@@ -390,9 +389,327 @@ namespace Visualization
 				X = a;
 				Y = b;
 			}
+
 			public double X { get; set; }
 			public double Y { get; set; }
 		}
+
 		#endregion
+	}
+
+	/*************************************************************************************************************/
+	internal class Kek
+	{
+		private readonly double _a;
+		private readonly double _b;
+		private readonly double _c;
+		private readonly double _alpha;
+		private readonly double _beta;
+
+		public Kek(double a, double b, double c, double alpha, double beta)
+		{
+			_a = a;
+			_b = b;
+			_c = c;
+			_alpha = alpha;
+			_beta = beta;
+		}
+
+		public List<PointPairList> GetVerticalIsoclinesPoints(double xFrom, double xTo, int steps)
+		{
+			var step = Math.Abs(xTo - xFrom) / steps;
+			var x = xFrom;
+			var points = new List<PointPairList> {new PointPairList(), new PointPairList()};
+			for (var i = 0; i < steps; i++)
+			{
+				var ord = GetVerticalIsoclineY(x);
+				points[0].Add(new PointPair(x, ord.X));
+				points[1].Add(new PointPair(x, ord.Y));
+				x += step;
+			}
+
+			return points;
+		}
+
+		public List<PointPairList> GetHorisontalIsoclinesPoints(double xFrom, double xTo, int steps)
+		{
+			const double eps = 0.001;
+			var step = Math.Abs(xTo - xFrom) / steps;
+			var x = xFrom;
+			var points = new List<PointPairList> {new PointPairList(), new PointPairList()};
+			while (Math.Abs(x + 1) > eps && x < -1 && x < xTo)
+			{
+				var y = GetHorisontalIsoclineY(x);
+				points[0].Add(x, y);
+				x += step;
+			}
+
+			while (Math.Abs(x + 1) < eps)
+			{
+				x += step;
+			}
+
+			while (x < xTo)
+			{
+				var y = GetHorisontalIsoclineY(x);
+				points[1].Add(x, y);
+				x += step;
+			}
+
+			return points;
+		}
+
+		private PointPair GetVerticalIsoclineY(double x)
+		{
+			var y1 = (-_b * x - _beta +
+			          Math.Sqrt((_b * x + _beta) * (_b * x + _beta) - 4 * _c * x * (_a * x + _alpha))) / (2 * _c);
+			var y2 = (-_b * x - _beta -
+			          Math.Sqrt((_b * x + _beta) * (_b * x + _beta) - 4 * _c * x * (_a * x + _alpha))) / (2 * _c);
+
+			return new PointPair(y1, y2);
+		}
+
+		private double GetHorisontalIsoclineY(double x) => -(x * x) / (x + 1);
+
+		//TODO: доделать
+		public void Draw(ZedGraphControl zedGraph, double h, int quantityOfPoints, string graphName, string title, 
+																								PointPair initialData)
+		{
+			var graph = GetGraph(h, quantityOfPoints, initialData);
+		}
+
+		private Graphic GetGraph(double h, int quantityOfPoints, PointPair initialData)
+		{
+			var x = initialData.X;
+			var y = initialData.Y;
+			var list = new PointPairList {new PointPair(x, y)};
+			var needCheck = true;
+			var yLast = y;
+			var counter = 0;
+			var isToRight = true;
+			const double eps = 0.00000000001;
+
+			if (Math.Abs(yLast) < eps)
+			{
+				counter = -1;
+			}
+
+			for (var i = 0; i < quantityOfPoints; i++)
+			{
+				var nextPoint = NextPoint(x, y, h);
+				list.Add(NextPoint(x, y, h));
+				y = nextPoint.Y;
+				if (needCheck)
+				{
+					if (y < 0 && yLast >= 0)
+					{
+						yLast = y;
+						counter++;
+					}
+					else if (y > 0 && yLast <= 0)
+					{
+						yLast = y;
+						counter++;
+					}
+
+					if (counter != 2) continue;
+					
+					x = nextPoint.X;
+					needCheck = false;
+					isToRight = x > initialData.X;
+				}
+			}
+
+			var graph = new Graphic(list, isToRight);
+			return graph;
+		}
+
+		public Cycles FindStabilityCycles(PointPair startPoint, double endOfInterval)
+		{
+			const double step = 0.1;
+			//var point = FindCentre(startPoint);
+			var point = new PointPair(0.1, 0);
+			var cycles = new Cycles();
+			startPoint = point;
+			point = PassFewSemicircle(point, 2);
+			var lastDirection = GetDirection(startPoint.X, point.X);
+			//point.X += step;
+			startPoint.X += step;
+			while (point.X < endOfInterval)
+			{
+				//startPoint = point;
+				point = PassFewSemicircle(startPoint, 2);
+				if (point == null)
+				{
+					return cycles;
+				}
+
+				const double accuracy = 0.00001;
+				var newDirection = GetDirection(startPoint.X, point.X);
+				if (newDirection != lastDirection)
+				{
+					var lastPoint = startPoint.Clone();
+					lastPoint.X -= step;
+					if (lastDirection == 1)
+					{
+						FindCycleApproximatePoints(ref cycles, lastPoint, startPoint, accuracy, true);
+					}
+					else
+					{
+						FindCycleApproximatePoints(ref cycles, lastPoint, startPoint, accuracy, false);
+					}
+				}
+
+				lastDirection = newDirection;
+				startPoint.X += step;
+				//point.X += step;
+			}
+
+			return cycles;
+		}
+
+		private void FindCycleApproximatePoints(Cycles cycles, PointPair left, PointPair right,
+			double accuracy, bool isStable)
+		{
+			var newPoint = left;
+
+			while (right.X - left.X > accuracy)
+			{
+				newPoint.X = left.X + (right.X - left.X) / 2;
+				var point = PassFewSemicircle(newPoint, 2);
+				if (GetDirection(newPoint.X, point.X) == 1)
+				{
+					left = newPoint;
+				}
+				else
+				{
+					right = newPoint;
+				}
+			}
+
+			const double step = 0.00001;
+			const int quantitySteps = 90000;
+			SetNewInitialData(left.X, left.Y);
+			if (isStable)
+			{
+				cycles.Stable.Add(GetResult(step, quantitySteps).GraphicPounts);
+			}
+			else
+			{
+				cycles.UnStable.Add(GetResult(step, quantitySteps).GraphicPounts);
+			}
+		}
+
+		private int GetDirection(double from, double to)
+		{
+			if (from < to)
+			{
+				return 1;
+			}
+
+			return from > to ? -1 : 0;
+		}
+
+		private PointPair PassFewSemicircle(PointPair point, int quantity)
+		{
+			const double largeStep = 0.0001;
+			const double shortStep = 0.00001;
+			var x0 = point.X;
+			var y0 = point.Y;
+			var prevPoint = new PointPair();
+			var nextPoint = new PointPair();
+			prevPoint.X = x0;
+			prevPoint.Y = y0;
+			var counter = -1;
+			var h = largeStep;
+			for (var i = 0; i < 2; i++)
+			{
+				var quantitySteps = 0;
+				const int max = 1000000;
+				while (counter < quantity && quantitySteps < max)
+				{
+					quantitySteps++;
+					nextPoint = NextPoint(prevPoint, h); //??????????????????????????????????????????????
+					if (prevPoint.Y - y0 >= 0 && nextPoint.Y - y0 < 0 || prevPoint.Y - y0 >= 0 && nextPoint.Y - y0 < 0)
+					{
+						counter++;
+					}
+
+					prevPoint = nextPoint;
+					if (quantitySteps == max)
+					{
+						return null;
+					}
+				}
+
+				counter = 1;
+				h = shortStep;
+			}
+
+			return nextPoint;
+		}
+
+		private PointPair NextPoint(double x, double y, double h)
+		{
+			var k11 = h * Fi(x, y);
+			var k21 = h * Psi(x, y);
+
+			var k12 = h * Fi(x + k11 / 2, y + k21 / 2);
+			var k22 = h * Psi(x + k11 / 2, y + k21 / 2);
+
+			var k13 = h * Fi(x + k12 / 2, y + k22 / 2);
+			var k23 = h * Psi(x + k12 / 2, y + k22 / 2);
+
+			var k14 = h * Fi(x + k13, y + k23);
+			var k24 = h * Psi(x + k13, y + k23);
+
+			var nextX = x + (k11 + 2 * k12 + 2 * k13 + k14) / 6;
+			var nextY = y + (k21 + 2 * k22 + 2 * k23 + k24) / 6;
+
+			SetNewCurrentPoint(nextX, nextY); // ??
+
+			return new PointPair(nextX, nextY);
+		}
+
+		private PointPair NextPoint(PointPair point, double h)
+		{
+			var x = point.X;
+			var y = point.Y;
+
+			var k11 = h * Fi(x, y);
+			var k21 = h * Psi(x, y);
+
+			var k12 = h * Fi(x + k11 / 2, y + k21 / 2);
+			var k22 = h * Psi(x + k11 / 2, y + k21 / 2);
+
+			var k13 = h * Fi(x + k12 / 2, y + k22 / 2);
+			var k23 = h * Psi(x + k12 / 2, y + k22 / 2);
+
+			var k14 = h * Fi(x + k13, y + k23);
+			var k24 = h * Psi(x + k13, y + k23);
+
+			var nextX = x + (k11 + 2 * k12 + 2 * k13 + k14) / 6;
+			var nextY = y + (k21 + 2 * k22 + 2 * k23 + k24) / 6;
+
+			SetNewCurrentPoint(nextX, nextY); // ??
+
+			return new PointPair(nextX, nextY);
+		}
+
+		private static double Fi(double x, double y) => x * x + x * y + y;
+
+		private double Psi(double x, double y) => _a * x * x + _b * x * y + _c * y * y + _alpha * x + _beta * y;
+
+		private class Graphic
+		{
+			public Graphic(PointPairList graphicPounts, bool isToRight)
+			{
+				GraphicPounts = graphicPounts;
+				IsToRight = isToRight;
+			}
+
+			public PointPairList GraphicPounts { get; }
+			public bool IsToRight { get; }
+		}
 	}
 }
