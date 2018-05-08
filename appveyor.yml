@@ -1,0 +1,15 @@
+
+matrix:
+  fast_finish: true
+
+platform:
+    - x64
+    - x86
+
+
+configuration:
+    - Debug
+    - Release
+
+build_script: ./scripts/before_build_mac.sh
+
