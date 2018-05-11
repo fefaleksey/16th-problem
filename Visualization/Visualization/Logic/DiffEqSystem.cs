@@ -666,8 +666,6 @@ namespace Visualization
 			var nextX = x + (k11 + 2 * k12 + 2 * k13 + k14) / 6;
 			var nextY = y + (k21 + 2 * k22 + 2 * k23 + k24) / 6;
 
-			SetNewCurrentPoint(nextX, nextY); // ??
-
 			return new PointPair(nextX, nextY);
 		}
 
@@ -690,8 +688,6 @@ namespace Visualization
 
 			var nextX = x + (k11 + 2 * k12 + 2 * k13 + k14) / 6;
 			var nextY = y + (k21 + 2 * k22 + 2 * k23 + k24) / 6;
-
-			SetNewCurrentPoint(nextX, nextY); // ??
 
 			return new PointPair(nextX, nextY);
 		}
