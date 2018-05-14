@@ -552,11 +552,11 @@ namespace Visualization
 					lastPoint.X -= step;
 					if (lastDirection == 1)
 					{
-						FindCycleApproximatePoints(ref cycles, lastPoint, startPoint, accuracy, true);
+						FindCycleApproximatePoints(cycles, lastPoint, startPoint, accuracy, true);
 					}
 					else
 					{
-						FindCycleApproximatePoints(ref cycles, lastPoint, startPoint, accuracy, false);
+						FindCycleApproximatePoints(cycles, lastPoint, startPoint, accuracy, false);
 					}
 				}
 
@@ -589,15 +589,15 @@ namespace Visualization
 
 			const double step = 0.00001;
 			const int quantitySteps = 90000;
-			SetNewInitialData(left.X, left.Y);
-			if (isStable)
-			{
-				cycles.Stable.Add(GetResult(step, quantitySteps).GraphicPounts);
-			}
-			else
-			{
-				cycles.UnStable.Add(GetResult(step, quantitySteps).GraphicPounts);
-			}
+//			SetNewInitialData(left.X, left.Y);
+//			if (isStable)
+//			{
+//				cycles.Stable.Add(GetResult(step, quantitySteps).GraphicPounts);
+//			}
+//			else
+//			{
+//				cycles.UnStable.Add(GetResult(step, quantitySteps).GraphicPounts);
+//			}
 		}
 
 		private int GetDirection(double from, double to)

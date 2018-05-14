@@ -115,10 +115,10 @@ namespace Visualization
 		{
 			//var diff = new DiffEqSystem(-10.0, 2.7, 0.4, -437.5, 0.003);
 			var isoclines = diff.GetVerticalIsoclinesPoints(-500, 100, 100000);
-			DrawIsocline(isoclines[0], "vertical isocline", Color.Black);
+			DrawIsocline(isoclines[0], "", Color.Black);
 			DrawIsocline(isoclines[1], "", Color.Black);
 			var horisontalIsocline = diff.GetHorisontalIsoclinesPoints(-500, 100, 100000);
-			DrawIsocline(horisontalIsocline[0], "horisontal isoclines", Color.DarkBlue);
+			DrawIsocline(horisontalIsocline[0], "", Color.DarkBlue);
 			DrawIsocline(horisontalIsocline[1], "", Color.DarkBlue);
 		}
 

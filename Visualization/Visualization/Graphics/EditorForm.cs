@@ -10,9 +10,9 @@ namespace Visualization
 		public EditorForm()
 		{
 			InitializeComponent();
-			var drawer = new Drawer(zedGraph);
-			drawer.DrawExampleStabilityCycles();
-			MessageBox.Show("Done");
+//			var drawer = new Drawer(zedGraph);
+//			drawer.DrawExampleStabilityCycles();
+//			MessageBox.Show("Done");
 		}
 
 		private void FileNewItem_Click(object sender, EventArgs e)
