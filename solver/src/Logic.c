@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <mpi.h>
+#include <time.h>
 #include "../include/Logic.h"
 
 static const int QUANTITY_OF_HALF_TURN = 2;
@@ -33,8 +34,9 @@ int test(int argc, char **argv)
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
-	printf("%d %d\n", myrank, nprocs);
+//	printf("%d %d\n", myrank, nprocs);
 	Vector *vector;
+	clock_t time = clock()/CLOCKS_PER_SEC;
 	for (int i = 0; i < nprocs; ++i) {
 		if (myrank == i) {
 			//vector = create_vector(-10.0 + 0.00001 * i, 2.7, 0.4, -440, 0.003);
@@ -48,7 +50,9 @@ int test(int argc, char **argv)
 		}
 	}
 	MPI_Finalize();
-	printf("%d %d %d %d %d %d %d %d\n", q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7]);
+	float this_time = (float)clock()/CLOCKS_PER_SEC - time;
+	printf("%f", this_time);
+//	printf("%d %d %d %d %d %d %d %d\n", q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7]);
 	return q[0];
 }
 
@@ -108,7 +112,7 @@ int find_cycles_in_sp_environs(Vector*vector, mydouble x0, mydouble y0, mydouble
 	int quantity = 0;
 	int myrank;
 	MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
-	printf("******%d******\n", myrank);
+//	printf("******%d******\n", myrank);
 	unsigned int i;
 	for (i = 0; i < quantity_steps; ++i) {
 		coshi_x += step;
@@ -116,7 +120,7 @@ int find_cycles_in_sp_environs(Vector*vector, mydouble x0, mydouble y0, mydouble
 			if (pass_few_semicircle(last_x, last_y, vector, QUANTITY_OF_HALF_TURN, &next_x, &next_y)) {
 				return -1; // ...
 		}
-		printf("%lf %lf || %lf %lf\n", last_x, last_y, next_x, next_y);
+//		printf("%lf %lf || %lf %lf\n", last_x, last_y, next_x, next_y);
 		new_direction = get_direction(last_x, next_x);
 		if (last_direction != new_direction) {
 			//printf("%.10lf %.10lf %d %d\n", last_x, next_x, last_direction, new_direction);
@@ -133,7 +137,7 @@ int find_cycles_in_sp_environs(Vector*vector, mydouble x0, mydouble y0, mydouble
 					right_x = new_x;
 				}
 			}
-			printf("%.10lf %.10lf %d %d\n", left_x, right_x, last_direction, new_direction);
+//			printf("%.10lf %.10lf %d %d\n", left_x, right_x, last_direction, new_direction);
 			++quantity;
 			last_direction = new_direction;
 		}
