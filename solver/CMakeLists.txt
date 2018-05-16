@@ -21,6 +21,6 @@ target_link_libraries(solver m)
 target_link_libraries(solver ${MPI_LIBRARIES})
 
 
-target_compile_options(solver PRIVATE -Wall -Wextra -march=native -Wpedantic)
+target_compile_options(solver PRIVATE -Wall -Wextra -march=native -Wpedantic) # без -march=native 
 
 set_property(TARGET solver PROPERTY INTERPROCEDURAL_OPTIMIZATION True)
