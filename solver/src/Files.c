@@ -10,12 +10,11 @@ typedef struct Saver
 Saver *create_saver(const char *output)
 {
 	Saver *saver = malloc(sizeof(Saver));
-
 	saver->output = fopen(output, "w");
-
 	return saver;
 }
 
+//y always == 0, is saved only x
 void save_vector(Saver *saver, const Vector *vector)
 {
 	fprintf(saver->output
@@ -27,9 +26,17 @@ void save_vector(Saver *saver, const Vector *vector)
 		, get_beta(vector));
 }
 
+void save_results(Saver *saver, const Vector *vector, int quantity, double points[])
+{
+	save_vector(saver, vector);
+	fprintf(saver->output, "%d\n", quantity);
+	for (int i = 0; i < quantity; ++i) {
+		fprintf(saver->output, "%lf\n", points[i]);
+	}
+}
+
 void delete_saver(Saver *saver)
 {
 	fclose(saver->output);
-
 	free(saver);
 }
