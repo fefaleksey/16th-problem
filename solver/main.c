@@ -1,7 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "include/Logic.h"
 
-int main()
+int main(int argc, char **argv)
 {
-	printf("Hello, World!\n");
+
+	int a = test(argc, argv);
+	printf("%d\n", a);
 	return 0;
 }

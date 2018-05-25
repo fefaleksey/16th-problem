@@ -1,0 +1,22 @@
+language: c
+dist:     trusty
+sudo:     required
+
+jobs:
+    include:
+    - stage: OS X
+      os: osx
+      compiler: clang
+      before_install: ./scripts/before_build_mac.sh
+    - stage: linux
+      os: linux
+      compiler: gcc
+      before_install: ./scripts/before_build_linux.sh
+
+
+script:
+    - mkdir build
+    - cd build
+    - cmake ../solver
+    - cmake --build .
+
