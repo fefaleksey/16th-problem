@@ -31,7 +31,7 @@ void save_results(Saver *saver, const Vector *vector, int quantity, double point
 	save_vector(saver, vector);
 	fprintf(saver->output, "%d\n", quantity);
 	for (int i = 0; i < quantity; ++i) {
-		fprintf(saver->output, "%lf\n", points[i]);
+		fprintf(saver->output, "%.9lf\n", points[i]);
 	}
 }
 

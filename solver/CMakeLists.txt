@@ -20,7 +20,7 @@ add_executable( solver main.c
                 include/Logic.h
                 src/SingularPoints.c
                 include/SingularPoints.h
-                include/CustomDataTypes.h)
+        )
 
 target_link_libraries(solver m)
 target_link_libraries(solver ${MPI_LIBRARIES})

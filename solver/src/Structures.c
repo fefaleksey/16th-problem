@@ -5,75 +5,75 @@
 
 typedef struct Vector
 {
-	mydouble a;
-	mydouble b;
-	mydouble c;
-	mydouble alpha;
-	mydouble beta;
+	double a;
+	double b;
+	double c;
+	double alpha;
+	double beta;
 
 } Vector;
 
 typedef struct Region
 {
-	mydouble a_from;
-	mydouble a_to;
-	mydouble a_step;
+	double a_from;
+	double a_to;
+	double a_step;
 
-	mydouble b_from;
-	mydouble b_to;
-	mydouble b_step;
+	double b_from;
+	double b_to;
+	double b_step;
 
-	mydouble c_from;
-	mydouble c_to;
-	mydouble c_step;
+	double c_from;
+	double c_to;
+	double c_step;
 
-	mydouble alpha_from;
-	mydouble alpha_to;
-	mydouble alpha_step;
+	double alpha_from;
+	double alpha_to;
+	double alpha_step;
 
-	mydouble beta_from;
-	mydouble beta_to;
-	mydouble beta_step;
+	double beta_from;
+	double beta_to;
+	double beta_step;
 } Region;
 
 typedef struct Point
 {
-	mydouble x;
-	mydouble y;
+	double x;
+	double y;
 } Point;
 
 typedef struct SingularPoints
 {
-	mydouble x0;
-	mydouble y0;
+	double x0;
+	double y0;
 
-	mydouble x1;
-	mydouble y1;
+	double x1;
+	double y1;
 
-	mydouble x2;
-	mydouble y2;
+	double x2;
+	double y2;
 
-	mydouble x3;
-	mydouble y3;
+	double x3;
+	double y3;
 
 	int numbers;
 } SingularPoints;
 
-Region *create_region(mydouble a_from
-					, mydouble a_to
-					, mydouble a_step
-					, mydouble b_from
-					, mydouble b_to
-					, mydouble b_step
-					, mydouble c_from
-					, mydouble c_to
-					, mydouble c_step
-					, mydouble alpha_from
-					, mydouble alpha_to
-					, mydouble alpha_step
-					, mydouble beta_from
-					, mydouble beta_to
-					, mydouble beta_step)
+Region *create_region(double a_from
+					, double a_to
+					, double a_step
+					, double b_from
+					, double b_to
+					, double b_step
+					, double c_from
+					, double c_to
+					, double c_step
+					, double alpha_from
+					, double alpha_to
+					, double alpha_step
+					, double beta_from
+					, double beta_to
+					, double beta_step)
 {
 	Region *region = malloc(sizeof(Region));
 	region->a_from = a_from;
@@ -99,11 +99,11 @@ Region *create_region(mydouble a_from
 	return region;
 }
 
-Vector *create_vector(const mydouble a
-	, const mydouble b
-	, const mydouble c
-	, const mydouble alpha
-	, const mydouble beta)
+Vector *create_vector(const double a
+	, const double b
+	, const double c
+	, const double alpha
+	, const double beta)
 {
 	Vector *vector = malloc(sizeof(Vector));
 
@@ -126,167 +126,167 @@ SingularPoints *get_singular_points(Vector *vector)
 	return sPoint;
 }
 
-mydouble get_region_a_from(const Region *region)
+double get_region_a_from(const Region *region)
 {
 	return region->a_from;
 }
 
-mydouble get_region_b_from(const Region *region)
+double get_region_b_from(const Region *region)
 {
 	return region->b_from;
 }
 
-mydouble get_region_c_from(const Region *region)
+double get_region_c_from(const Region *region)
 {
 	return region->c_from;
 }
 
-mydouble get_region_alpha_from(const Region *region)
+double get_region_alpha_from(const Region *region)
 {
 	return region->alpha_from;
 }
 
-mydouble get_region_beta_from(const Region *region)
+double get_region_beta_from(const Region *region)
 {
 	return region->beta_from;
 }
 
-mydouble get_region_a_to(const Region *region)
+double get_region_a_to(const Region *region)
 {
 	return region->a_to;
 }
 
-mydouble get_region_b_to(const Region *region)
+double get_region_b_to(const Region *region)
 {
 	return region->b_to;
 }
 
-mydouble get_region_c_to(const Region *region)
+double get_region_c_to(const Region *region)
 {
 	return region->c_to;
 }
 
-mydouble get_region_alpha_to(const Region *region)
+double get_region_alpha_to(const Region *region)
 {
 	return region->alpha_to;
 }
 
-mydouble get_region_beta_to(const Region *region)
+double get_region_beta_to(const Region *region)
 {
 	return region->beta_to;
 }
 
-mydouble get_region_a_step(const Region *region)
+double get_region_a_step(const Region *region)
 {
 	return region->a_step;
 }
 
-mydouble get_region_b_step(const Region *region)
+double get_region_b_step(const Region *region)
 {
 	return region->b_step;
 }
 
-mydouble get_region_c_step(const Region *region)
+double get_region_c_step(const Region *region)
 {
 	return region->c_step;
 }
 
-mydouble get_region_alpha_step(const Region *region)
+double get_region_alpha_step(const Region *region)
 {
 	return region->alpha_step;
 }
 
-mydouble get_region_beta_step(const Region *region)
+double get_region_beta_step(const Region *region)
 {
 	return region->beta_step;
 }
 
-mydouble get_a(const Vector *vector)
+double get_a(const Vector *vector)
 {
 	return vector->a;
 }
 
-mydouble get_b(const Vector *vector)
+double get_b(const Vector *vector)
 {
 	return vector->b;
 }
 
-mydouble get_c(const Vector *vector)
+double get_c(const Vector *vector)
 {
 	return vector->c;
 }
 
-mydouble get_alpha(const Vector *vector)
+double get_alpha(const Vector *vector)
 {
 	return vector->alpha;
 }
 
-mydouble get_beta(const Vector *vector)
+double get_beta(const Vector *vector)
 {
 	return vector->beta;
 }
 
-void set_a(Vector *vector, const mydouble a)
+void set_a(Vector *vector, const double a)
 {
 	vector->a = a;
 }
 
-void set_b(Vector *vector, const mydouble b)
+void set_b(Vector *vector, const double b)
 {
 	vector->b = b;
 }
 
-void set_c(Vector *vector, const mydouble c)
+void set_c(Vector *vector, const double c)
 {
 	vector->c = c;
 }
 
-void set_alpha(Vector *vector, const mydouble alpha)
+void set_alpha(Vector *vector, const double alpha)
 {
 	vector->alpha = alpha;
 }
 
-void set_beta(Vector *vector, const mydouble beta)
+void set_beta(Vector *vector, const double beta)
 {
 	vector->beta = beta;
 }
 
-mydouble get_x0(SingularPoints *sPoint)
+double get_x0(SingularPoints *sPoint)
 {
 	return sPoint->x0;
 }
 
-mydouble get_x1(SingularPoints *sPoint)
+double get_x1(SingularPoints *sPoint)
 {
 	return sPoint->x1;
 }
 
-mydouble get_x2(SingularPoints *sPoint)
+double get_x2(SingularPoints *sPoint)
 {
 	return sPoint->x2;
 }
 
-mydouble get_x3(SingularPoints *sPoint)
+double get_x3(SingularPoints *sPoint)
 {
 	return sPoint->x3;
 }
 
-mydouble get_y0(SingularPoints *sPoint)
+double get_y0(SingularPoints *sPoint)
 {
 	return sPoint->y0;
 }
 
-mydouble get_y1(SingularPoints *sPoint)
+double get_y1(SingularPoints *sPoint)
 {
 	return sPoint->y1;
 }
 
-mydouble get_y2(SingularPoints *sPoint)
+double get_y2(SingularPoints *sPoint)
 {
 	return sPoint->y2;
 }
 
-mydouble get_y3(SingularPoints *sPoint)
+double get_y3(SingularPoints *sPoint)
 {
 	return sPoint->y3;
 }
@@ -296,42 +296,42 @@ int  get_numbers(SingularPoints *sPoint)
 	return sPoint->numbers;
 }
 
-void set_x0(SingularPoints *sPoint, mydouble x0)
+void set_x0(SingularPoints *sPoint, double x0)
 {
 	sPoint->x0 = x0;
 }
 
-void set_x1(SingularPoints *sPoint, mydouble x1)
+void set_x1(SingularPoints *sPoint, double x1)
 {
 	sPoint->x1 = x1;
 }
 
-void set_x2(SingularPoints *sPoint, mydouble x2)
+void set_x2(SingularPoints *sPoint, double x2)
 {
 	sPoint->x2 = x2;
 }
 
-void set_x3(SingularPoints *sPoint, mydouble x3)
+void set_x3(SingularPoints *sPoint, double x3)
 {
 	sPoint->x3 = x3;
 }
 
-void set_y0(SingularPoints *sPoint, mydouble y0)
+void set_y0(SingularPoints *sPoint, double y0)
 {
 	sPoint->y0 = y0;
 }
 
-void set_y1(SingularPoints *sPoint, mydouble y1)
+void set_y1(SingularPoints *sPoint, double y1)
 {
 	sPoint->y1 = y1;
 }
 
-void set_y2(SingularPoints *sPoint, mydouble y2)
+void set_y2(SingularPoints *sPoint, double y2)
 {
 	sPoint->y2 = y2;
 }
 
-void set_y3(SingularPoints *sPoint, mydouble y3)
+void set_y3(SingularPoints *sPoint, double y3)
 {
 	sPoint->y3 = y3;
 }
