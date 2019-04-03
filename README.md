@@ -1,5 +1,5 @@
-# Hilbert-s-16th-problem
-# Ugly code for research.
+# CLOSE THIS WINDOW AS SOON AS POSSIBLE!!!
+# A piece of ~~sh*t~~ bad code.
 # I'm sorry for you having to see this.
-# I don't have time to fix this code.
-# The main thing is that it works.
+# I don't want to touch this anymore.
+# At least, it's works.
